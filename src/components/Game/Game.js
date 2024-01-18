@@ -5,6 +5,8 @@ import { WORDS } from "../../data";
 import EnterWord from "../EnterWord/EnterWord";
 import GuessList from "../GuessList/GuessList";
 import { Banner } from "../Banner";
+import Keyboard from "../Keyboard/Keyboard";
+import { checkGuess } from "../../game-helpers";
 
 // Pick a random word on every pageload.
 // To make debugging easier, we'll log the solution in the console.
@@ -18,6 +20,9 @@ function Game() {
     setGuessesList([]);
     setStatus("running");
   }
+  const validatedGuesses = guessesList.map((obj) =>
+    checkGuess(obj.guess, answer)
+  );
   return (
     <>
       <GuessList guessesList={guessesList} answer={answer} />
@@ -37,6 +42,7 @@ function Game() {
           handleRestart={handleRestart}
         />
       )}
+      <Keyboard validatedGuesses={validatedGuesses} />
     </>
   );
 }

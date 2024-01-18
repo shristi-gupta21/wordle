@@ -27234,6 +27234,9 @@ var _enterWordDefault = parcelHelpers.interopDefault(_enterWord);
 var _guessList = require("../GuessList/GuessList");
 var _guessListDefault = parcelHelpers.interopDefault(_guessList);
 var _banner = require("../Banner");
+var _keyboard = require("../Keyboard/Keyboard");
+var _keyboardDefault = parcelHelpers.interopDefault(_keyboard);
+var _gameHelpers = require("../../game-helpers");
 var _s = $RefreshSig$();
 // Pick a random word on every pageload.
 // To make debugging easier, we'll log the solution in the console.
@@ -27248,6 +27251,7 @@ function Game() {
         setGuessesList([]);
         setStatus("running");
     }
+    const validatedGuesses = guessesList.map((obj)=>(0, _gameHelpers.checkGuess)(obj.guess, answer));
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _guessListDefault.default), {
@@ -27255,7 +27259,7 @@ function Game() {
                 answer: answer
             }, void 0, false, {
                 fileName: "src/components/Game/Game.js",
-                lineNumber: 23,
+                lineNumber: 28,
                 columnNumber: 7
             }, this),
             status === "running" ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _enterWordDefault.default), {
@@ -27266,7 +27270,7 @@ function Game() {
                 answer: answer
             }, void 0, false, {
                 fileName: "src/components/Game/Game.js",
-                lineNumber: 25,
+                lineNumber: 30,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _banner.Banner), {
                 guessesList: guessesList,
@@ -27275,8 +27279,15 @@ function Game() {
                 handleRestart: handleRestart
             }, void 0, false, {
                 fileName: "src/components/Game/Game.js",
-                lineNumber: 33,
+                lineNumber: 38,
                 columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _keyboardDefault.default), {
+                validatedGuesses: validatedGuesses
+            }, void 0, false, {
+                fileName: "src/components/Game/Game.js",
+                lineNumber: 45,
+                columnNumber: 7
             }, this)
         ]
     }, void 0, true);
@@ -27292,7 +27303,7 @@ $RefreshReg$(_c, "Game");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../utils":"en4he","../../data":"9kapS","../EnterWord/EnterWord":"2cogl","../GuessList/GuessList":"bCwgj","../Banner":"hcH4r","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"en4he":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../utils":"en4he","../../data":"9kapS","../EnterWord/EnterWord":"2cogl","../GuessList/GuessList":"bCwgj","../Banner":"hcH4r","../Keyboard/Keyboard":"cbXLQ","../../game-helpers":"dWwK5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"en4he":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "sample", ()=>sample);
@@ -27882,7 +27893,109 @@ $RefreshReg$(_c, "Banner");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../game-helpers":"dWwK5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cxSZo":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../game-helpers":"dWwK5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cbXLQ":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$5e71 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5e71.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+const ROWS = [
+    [
+        "Q",
+        "W",
+        "E",
+        "R",
+        "T",
+        "Y",
+        "U",
+        "I",
+        "O",
+        "P"
+    ],
+    [
+        "A",
+        "S",
+        "D",
+        "F",
+        "G",
+        "H",
+        "J",
+        "K",
+        "L"
+    ],
+    [
+        "Z",
+        "X",
+        "C",
+        "V",
+        "B",
+        "N",
+        "M"
+    ]
+];
+const Keyboard = ({ validatedGuesses  })=>{
+    const getStatus = ()=>{
+        const statusObj = {};
+        const allLetters = validatedGuesses.flat();
+        allLetters.forEach(({ letter , status  })=>{
+            const currentStatus = statusObj[letter];
+            console.log(currentStatus);
+            if (currentStatus === undefined) {
+                statusObj[letter] = status;
+                return;
+            }
+            const STATUS_RANKS = {
+                correct: 1,
+                misplaced: 2,
+                incorrect: 3
+            };
+            const currentStatusRank = STATUS_RANKS[currentStatus];
+            const newStatusRank = STATUS_RANKS[status];
+            if (newStatusRank < currentStatusRank) statusObj[letter] = status;
+        });
+        return statusObj;
+    };
+    const statusByLetter = getStatus(validatedGuesses);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "keyboard",
+        children: ROWS.map((row, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "keyboard-row",
+                children: row.map((char, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: `letter ${statusByLetter[char] || ""}`,
+                        children: char
+                    }, index, false, {
+                        fileName: "src/components/Keyboard/Keyboard.js",
+                        lineNumber: 41,
+                        columnNumber: 13
+                    }, undefined))
+            }, index, false, {
+                fileName: "src/components/Keyboard/Keyboard.js",
+                lineNumber: 39,
+                columnNumber: 9
+            }, undefined))
+    }, void 0, false, {
+        fileName: "src/components/Keyboard/Keyboard.js",
+        lineNumber: 37,
+        columnNumber: 5
+    }, undefined);
+};
+_c = Keyboard;
+exports.default = Keyboard;
+var _c;
+$RefreshReg$(_c, "Keyboard");
+
+  $parcel$ReactRefreshHelpers$5e71.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cxSZo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _headerDefault.default));
