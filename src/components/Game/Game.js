@@ -13,10 +13,10 @@ import { checkGuess } from "../../game-helpers";
 function Game() {
   const [guessesList, setGuessesList] = React.useState([]);
   const [status, setStatus] = React.useState("running");
-  const [answer, setAnswer] = React.useState("");
+  const [answer, setAnswer] = React.useState(sample(WORDS));
   function handleRestart() {
-    const newAnswer = sample(WORDS);
-    setAnswer(newAnswer);
+    const newAns = sample(WORDS);
+    setAnswer(newAns);
     setGuessesList([]);
     setStatus("running");
   }

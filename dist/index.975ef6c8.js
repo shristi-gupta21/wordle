@@ -27244,10 +27244,10 @@ function Game() {
     _s();
     const [guessesList, setGuessesList] = (0, _reactDefault.default).useState([]);
     const [status, setStatus] = (0, _reactDefault.default).useState("running");
-    const [answer, setAnswer] = (0, _reactDefault.default).useState("");
+    const [answer, setAnswer] = (0, _reactDefault.default).useState((0, _utils.sample)((0, _data.WORDS)));
     function handleRestart() {
-        const newAnswer = (0, _utils.sample)((0, _data.WORDS));
-        setAnswer(newAnswer);
+        const newAns = (0, _utils.sample)((0, _data.WORDS));
+        setAnswer(newAns);
         setGuessesList([]);
         setStatus("running");
     }
@@ -27292,7 +27292,7 @@ function Game() {
         ]
     }, void 0, true);
 }
-_s(Game, "OT08fo0GA6Hghd0wgjPNuoZIZSI=");
+_s(Game, "ROo/F3ZOKptAZnJ2K0T/gFnOIB4=");
 _c = Game;
 exports.default = Game;
 var _c;
@@ -27458,12 +27458,10 @@ function EnterWord({ guessesList , setGuessesList , answer , setStatus  }) {
                 name: "guess-input",
                 id: "guess-input",
                 "aria-describedby": "helpId",
-                pattern: "[a-zA-Z]+",
+                pattern: "[a-zA-Z]{5}",
                 onChange: (e)=>setGuessWord(e.target.value.toUpperCase()),
                 placeholder: "",
-                value: guessWord,
-                minLength: 5,
-                maxLength: 5
+                value: guessWord
             }, void 0, false, {
                 fileName: "src/components/EnterWord/EnterWord.js",
                 lineNumber: 21,
@@ -27945,7 +27943,6 @@ const Keyboard = ({ validatedGuesses  })=>{
         const allLetters = validatedGuesses.flat();
         allLetters.forEach(({ letter , status  })=>{
             const currentStatus = statusObj[letter];
-            console.log(currentStatus);
             if (currentStatus === undefined) {
                 statusObj[letter] = status;
                 return;
@@ -27971,17 +27968,17 @@ const Keyboard = ({ validatedGuesses  })=>{
                         children: char
                     }, index, false, {
                         fileName: "src/components/Keyboard/Keyboard.js",
-                        lineNumber: 41,
+                        lineNumber: 40,
                         columnNumber: 13
                     }, undefined))
             }, index, false, {
                 fileName: "src/components/Keyboard/Keyboard.js",
-                lineNumber: 39,
+                lineNumber: 38,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/Keyboard/Keyboard.js",
-        lineNumber: 37,
+        lineNumber: 36,
         columnNumber: 5
     }, undefined);
 };

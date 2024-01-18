@@ -11,7 +11,6 @@ const Keyboard = ({ validatedGuesses }) => {
 
     allLetters.forEach(({ letter, status }) => {
       const currentStatus = statusObj[letter];
-      console.log(currentStatus);
       if (currentStatus === undefined) {
         statusObj[letter] = status;
         return;

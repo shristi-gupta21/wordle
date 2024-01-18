@@ -24,12 +24,10 @@ function EnterWord({ guessesList, setGuessesList, answer, setStatus }) {
         name="guess-input"
         id="guess-input"
         aria-describedby="helpId"
-        pattern="[a-zA-Z]+"
+        pattern="[a-zA-Z]{5}"
         onChange={(e) => setGuessWord(e.target.value.toUpperCase())}
         placeholder=""
         value={guessWord}
-        minLength={5}
-        maxLength={5}
       />
     </form>
   );
