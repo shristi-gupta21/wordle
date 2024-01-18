@@ -1,7 +1,7 @@
 import React from "react";
 import { checkGuess } from "../../game-helpers";
 
-export const Banner = ({ status, guessesList }) => {
+export const Banner = ({ status, guessesList, answer, handleRestart }) => {
   return (
     <div>
       {status === "won" && (
@@ -10,13 +10,15 @@ export const Banner = ({ status, guessesList }) => {
             <strong>Congratulations!</strong> Got it in
             <strong> {guessesList.length} guesses</strong>.
           </p>
+          <button onClick={handleRestart}>Restart Game</button>
         </div>
       )}
       {status === "lost" && (
         <div className="sad banner">
           <p>
-            Sorry, the correct answer is <strong>LEARN</strong>.
+            Sorry, the correct answer is <strong>{answer}</strong>.
           </p>
+          <button onClick={handleRestart}>Restart Game</button>
         </div>
       )}
     </div>

@@ -7,13 +7,17 @@ import GuessList from "../GuessList/GuessList";
 import { Banner } from "../Banner";
 
 // Pick a random word on every pageload.
-const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
-
 function Game() {
   const [guessesList, setGuessesList] = React.useState([]);
   const [status, setStatus] = React.useState("running");
+  const [answer, setAnswer] = React.useState("");
+  function handleRestart() {
+    const newAnswer = sample(WORDS);
+    setAnswer(newAnswer);
+    setGuessesList([]);
+    setStatus("running");
+  }
   return (
     <>
       <GuessList guessesList={guessesList} answer={answer} />
@@ -26,7 +30,12 @@ function Game() {
           answer={answer}
         />
       ) : (
-        <Banner guessesList={guessesList} answer={answer} status={status} />
+        <Banner
+          guessesList={guessesList}
+          answer={answer}
+          status={status}
+          handleRestart={handleRestart}
+        />
       )}
     </>
   );

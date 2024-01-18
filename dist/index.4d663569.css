@@ -218,4 +218,42 @@ h1 {
   }
 }
 
+.keyboard {
+  flex-direction: column;
+  gap: 4px;
+  display: flex;
+}
+
+.keyboard-row {
+  justify-content: center;
+  gap: 4px;
+  display: flex;
+}
+
+.keyboard .letter {
+  background: var(--color-gray-900);
+  border-radius: 4px;
+  place-content: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  display: grid;
+}
+
+.keyboard .letter.correct {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.keyboard .letter.incorrect {
+  background: var(--color-gray-300);
+  color: #fff;
+}
+
+.keyboard .letter.misplaced {
+  background: var(--color-warning);
+  color: #fff;
+}
+
 /*# sourceMappingURL=index.4d663569.css.map */

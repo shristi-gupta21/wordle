@@ -27236,15 +27236,18 @@ var _guessListDefault = parcelHelpers.interopDefault(_guessList);
 var _banner = require("../Banner");
 var _s = $RefreshSig$();
 // Pick a random word on every pageload.
-const answer = (0, _utils.sample)((0, _data.WORDS));
 // To make debugging easier, we'll log the solution in the console.
-console.info({
-    answer
-});
 function Game() {
     _s();
     const [guessesList, setGuessesList] = (0, _reactDefault.default).useState([]);
     const [status, setStatus] = (0, _reactDefault.default).useState("running");
+    const [answer, setAnswer] = (0, _reactDefault.default).useState("");
+    function handleRestart() {
+        const newAnswer = (0, _utils.sample)((0, _data.WORDS));
+        setAnswer(newAnswer);
+        setGuessesList([]);
+        setStatus("running");
+    }
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _guessListDefault.default), {
@@ -27252,7 +27255,7 @@ function Game() {
                 answer: answer
             }, void 0, false, {
                 fileName: "src/components/Game/Game.js",
-                lineNumber: 19,
+                lineNumber: 23,
                 columnNumber: 7
             }, this),
             status === "running" ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _enterWordDefault.default), {
@@ -27263,21 +27266,22 @@ function Game() {
                 answer: answer
             }, void 0, false, {
                 fileName: "src/components/Game/Game.js",
-                lineNumber: 21,
+                lineNumber: 25,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _banner.Banner), {
                 guessesList: guessesList,
                 answer: answer,
-                status: status
+                status: status,
+                handleRestart: handleRestart
             }, void 0, false, {
                 fileName: "src/components/Game/Game.js",
-                lineNumber: 29,
+                lineNumber: 33,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true);
 }
-_s(Game, "6Bg7iTEYHFCS/ZisPOigIeHeJCo=");
+_s(Game, "OT08fo0GA6Hghd0wgjPNuoZIZSI=");
 _c = Game;
 exports.default = Game;
 var _c;
@@ -27780,66 +27784,86 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _gameHelpers = require("../../game-helpers");
-const Banner = ({ status , guessesList  })=>{
+const Banner = ({ status , guessesList , answer , handleRestart  })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             status === "won" && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "happy banner",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                    children: [
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                            children: "Congratulations!"
-                        }, void 0, false, {
-                            fileName: "src/components/Banner/Banner.js",
-                            lineNumber: 10,
-                            columnNumber: 13
-                        }, undefined),
-                        " Got it in",
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                            children: [
-                                " ",
-                                guessesList.length,
-                                " guesses"
-                            ]
-                        }, void 0, true, {
-                            fileName: "src/components/Banner/Banner.js",
-                            lineNumber: 11,
-                            columnNumber: 13
-                        }, undefined),
-                        "."
-                    ]
-                }, void 0, true, {
-                    fileName: "src/components/Banner/Banner.js",
-                    lineNumber: 9,
-                    columnNumber: 11
-                }, undefined)
-            }, void 0, false, {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                children: "Congratulations!"
+                            }, void 0, false, {
+                                fileName: "src/components/Banner/Banner.js",
+                                lineNumber: 10,
+                                columnNumber: 13
+                            }, undefined),
+                            " Got it in",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                children: [
+                                    " ",
+                                    guessesList.length,
+                                    " guesses"
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/Banner/Banner.js",
+                                lineNumber: 11,
+                                columnNumber: 13
+                            }, undefined),
+                            "."
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/Banner/Banner.js",
+                        lineNumber: 9,
+                        columnNumber: 11
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        onClick: handleRestart,
+                        children: "Restart Game"
+                    }, void 0, false, {
+                        fileName: "src/components/Banner/Banner.js",
+                        lineNumber: 13,
+                        columnNumber: 11
+                    }, undefined)
+                ]
+            }, void 0, true, {
                 fileName: "src/components/Banner/Banner.js",
                 lineNumber: 8,
                 columnNumber: 9
             }, undefined),
             status === "lost" && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "sad banner",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                    children: [
-                        "Sorry, the correct answer is ",
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                            children: "LEARN"
-                        }, void 0, false, {
-                            fileName: "src/components/Banner/Banner.js",
-                            lineNumber: 18,
-                            columnNumber: 42
-                        }, undefined),
-                        "."
-                    ]
-                }, void 0, true, {
-                    fileName: "src/components/Banner/Banner.js",
-                    lineNumber: 17,
-                    columnNumber: 11
-                }, undefined)
-            }, void 0, false, {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                        children: [
+                            "Sorry, the correct answer is ",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                children: answer
+                            }, void 0, false, {
+                                fileName: "src/components/Banner/Banner.js",
+                                lineNumber: 19,
+                                columnNumber: 42
+                            }, undefined),
+                            "."
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/Banner/Banner.js",
+                        lineNumber: 18,
+                        columnNumber: 11
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        onClick: handleRestart,
+                        children: "Restart Game"
+                    }, void 0, false, {
+                        fileName: "src/components/Banner/Banner.js",
+                        lineNumber: 21,
+                        columnNumber: 11
+                    }, undefined)
+                ]
+            }, void 0, true, {
                 fileName: "src/components/Banner/Banner.js",
-                lineNumber: 16,
+                lineNumber: 17,
                 columnNumber: 9
             }, undefined)
         ]
