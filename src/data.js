@@ -68,4 +68,5 @@ export const WORDS = [
   "JOKER",
   "ZEBRA",
   "TRUST",
+  "EMPTY",
 ];

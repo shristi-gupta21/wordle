@@ -2946,14 +2946,14 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _client = require("react-dom/client");
-var _app = require("./components/App");
+var _app = require("./components/App/App");
 var _appDefault = parcelHelpers.interopDefault(_app);
 var _resetCss = require("./reset.css");
 var _stylesCss = require("./styles.css");
 const root = (0, _client.createRoot)(document.querySelector("#root"));
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _appDefault.default), {}, void 0, false, {
     fileName: "src/index.js",
-    lineNumber: 10,
+    lineNumber: 9,
     columnNumber: 13
 }, undefined));
 
@@ -2962,7 +2962,7 @@ root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _appDefault.default), {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/App":"2Pgyy","./reset.css":"8XPx9","./styles.css":"lW6qc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/App/App":"gL2as","./reset.css":"8XPx9","./styles.css":"lW6qc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27147,15 +27147,7 @@ module.exports = require("ef03b89c8fe2794e");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{}],"2Pgyy":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>(0, _appDefault.default));
-var _app = require("./App");
-parcelHelpers.exportAll(_app, exports);
-var _appDefault = parcelHelpers.interopDefault(_app);
-
-},{"./App":"gL2as","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gL2as":[function(require,module,exports) {
+},{}],"gL2as":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$06f8 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27207,7 +27199,114 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../Game/Game":"aChvf","../Header/Header":"8iwn3"}],"gkKU3":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","../Game/Game":"aChvf","../Header/Header":"8iwn3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"aChvf":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$161d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$161d.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _utils = require("../../utils");
+var _data = require("../../data");
+var _enterWord = require("../EnterWord/EnterWord");
+var _enterWordDefault = parcelHelpers.interopDefault(_enterWord);
+var _guessList = require("../GuessList/GuessList");
+var _guessListDefault = parcelHelpers.interopDefault(_guessList);
+var _banner = require("../Banner/Banner");
+var _bannerDefault = parcelHelpers.interopDefault(_banner);
+var _keyboard = require("../Keyboard/Keyboard");
+var _keyboardDefault = parcelHelpers.interopDefault(_keyboard);
+var _gameHelpers = require("../../game-helpers");
+var _s = $RefreshSig$();
+// Pick a random word on every pageload.
+// To make debugging easier, we'll log the solution in the console.
+function Game() {
+    _s();
+    const [guessesList, setGuessesList] = (0, _reactDefault.default).useState([]);
+    const [status, setStatus] = (0, _reactDefault.default).useState("running");
+    const [answer, setAnswer] = (0, _reactDefault.default).useState((0, _utils.sample)((0, _data.WORDS)));
+    function handleRestart() {
+        const newAns = (0, _utils.sample)((0, _data.WORDS));
+        setAnswer(newAns);
+        setGuessesList([]);
+        setStatus("running");
+    }
+    const validatedGuesses = guessesList.map((obj)=>(0, _gameHelpers.checkGuess)(obj.guess, answer));
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _guessListDefault.default), {
+                guessesList: guessesList,
+                answer: answer
+            }, void 0, false, {
+                fileName: "src/components/Game/Game.js",
+                lineNumber: 28,
+                columnNumber: 7
+            }, this),
+            status === "running" ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _enterWordDefault.default), {
+                guessesList: guessesList,
+                setGuessesList: setGuessesList,
+                status: status,
+                setStatus: setStatus,
+                answer: answer
+            }, void 0, false, {
+                fileName: "src/components/Game/Game.js",
+                lineNumber: 30,
+                columnNumber: 9
+            }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bannerDefault.default), {
+                guessesList: guessesList,
+                answer: answer,
+                status: status,
+                handleRestart: handleRestart
+            }, void 0, false, {
+                fileName: "src/components/Game/Game.js",
+                lineNumber: 38,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _keyboardDefault.default), {
+                validatedGuesses: validatedGuesses
+            }, void 0, false, {
+                fileName: "src/components/Game/Game.js",
+                lineNumber: 45,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true);
+}
+_s(Game, "ROo/F3ZOKptAZnJ2K0T/gFnOIB4=");
+_c = Game;
+exports.default = Game;
+var _c;
+$RefreshReg$(_c, "Game");
+
+  $parcel$ReactRefreshHelpers$161d.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../utils":"en4he","../../data":"9kapS","../EnterWord/EnterWord":"2cogl","../GuessList/GuessList":"bCwgj","../Banner/Banner":"dRLMg","../Keyboard/Keyboard":"cbXLQ","../../game-helpers":"dWwK5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"en4he":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "sample", ()=>sample);
+parcelHelpers.export(exports, "range", ()=>range);
+const sample = (arr)=>{
+    return arr[Math.floor(Math.random() * arr.length)];
+};
+const range = (start, end, step = 1)=>{
+    let output = [];
+    if (typeof end === "undefined") {
+        end = start;
+        start = 0;
+    }
+    for(let i = start; i < end; i += step)output.push(i);
+    return output;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -27237,7 +27336,167 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"km3Ru":[function(require,module,exports) {
+},{}],"9kapS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "WORDS", ()=>WORDS);
+const WORDS = [
+    "AGENT",
+    "WORLD",
+    "ABOUT",
+    "HEART",
+    "WATER",
+    "SIXTY",
+    "BOARD",
+    "MONTH",
+    "MUSIC",
+    "PARTY",
+    "PIANO",
+    "MOUTH",
+    "WOMAN",
+    "SUGAR",
+    "AMBER",
+    "DREAM",
+    "LAUGH",
+    "TIGER",
+    "EARTH",
+    "MONEY",
+    "WORDS",
+    "SMILE",
+    "LEMON",
+    "SOUTH",
+    "AFTER",
+    "STONE",
+    "THING",
+    "LIGHT",
+    "STORY",
+    "POWER",
+    "TODAY",
+    "RANGE",
+    "PEARL",
+    "VENOM",
+    "PROXY",
+    "ROUND",
+    "HOVER",
+    "CANDY",
+    "ABOVE",
+    "PHONE",
+    "OTHER",
+    "SMART",
+    "BLACK",
+    "MAGIC",
+    "FRUIT",
+    "RADIO",
+    "ROYAL",
+    "HONEY",
+    "FLAKE",
+    "SOUND",
+    "SLICE",
+    "JUMBO",
+    "APPLE",
+    "CHAIR",
+    "SWIFT",
+    "TABLE",
+    "MOUSE",
+    "GRASP",
+    "QUIRK",
+    "HINGE",
+    "FROST",
+    "SKATE",
+    "FLOCK",
+    "FROCK",
+    "GLEAM",
+    "RACER",
+    "JOKER",
+    "ZEBRA",
+    "TRUST",
+    "EMPTY"
+];
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2cogl":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$f300 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$f300.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _constants = require("../../constants");
+var _s = $RefreshSig$();
+function EnterWord({ guessesList , setGuessesList , answer , setStatus  }) {
+    _s();
+    const [guessWord, setGuessWord] = (0, _reactDefault.default).useState("");
+    const handleSubmitGuess = (e)=>{
+        e.preventDefault();
+        const newWord = {
+            guess: guessWord,
+            id: crypto.randomUUID()
+        };
+        const newGuessList = [
+            ...guessesList,
+            newWord
+        ];
+        setGuessesList(newGuessList);
+        setGuessWord("");
+        if (guessWord.toUpperCase() === answer) setStatus("won");
+        else if (guessesList.length + 1 >= (0, _constants.NUM_OF_GUESSES_ALLOWED)) setStatus("lost");
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+        className: "guess-input-wrapper",
+        onSubmit: handleSubmitGuess,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                htmlFor: "guess-input",
+                children: "Enter Guess:"
+            }, void 0, false, {
+                fileName: "src/components/EnterWord/EnterWord.js",
+                lineNumber: 20,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                type: "text",
+                className: "form-control",
+                name: "guess-input",
+                id: "guess-input",
+                "aria-describedby": "helpId",
+                pattern: "[a-zA-Z]{5}",
+                onChange: (e)=>setGuessWord(e.target.value.toUpperCase()),
+                placeholder: "",
+                value: guessWord
+            }, void 0, false, {
+                fileName: "src/components/EnterWord/EnterWord.js",
+                lineNumber: 21,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/EnterWord/EnterWord.js",
+        lineNumber: 19,
+        columnNumber: 5
+    }, this);
+}
+_s(EnterWord, "7GiW03hTTmtVv0zOuM3lgcWn53c=");
+_c = EnterWord;
+exports.default = EnterWord;
+var _c;
+$RefreshReg$(_c, "EnterWord");
+
+  $parcel$ReactRefreshHelpers$f300.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../constants":"3huJa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"3huJa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "NUM_OF_GUESSES_ALLOWED", ()=>NUM_OF_GUESSES_ALLOWED);
+const NUM_OF_GUESSES_ALLOWED = 6;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"km3Ru":[function(require,module,exports) {
 "use strict";
 var Refresh = require("7422ead32dcc1e6b");
 function debounce(func, delay) {
@@ -27375,254 +27634,7 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"7422ead32dcc1e6b":"786KC"}],"aChvf":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$161d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$161d.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _utils = require("../../utils");
-var _data = require("../../data");
-var _enterWord = require("../EnterWord/EnterWord");
-var _enterWordDefault = parcelHelpers.interopDefault(_enterWord);
-var _guessList = require("../GuessList/GuessList");
-var _guessListDefault = parcelHelpers.interopDefault(_guessList);
-var _banner = require("../Banner/Banner");
-var _bannerDefault = parcelHelpers.interopDefault(_banner);
-var _keyboard = require("../Keyboard/Keyboard");
-var _keyboardDefault = parcelHelpers.interopDefault(_keyboard);
-var _gameHelpers = require("../../game-helpers");
-var _s = $RefreshSig$();
-// Pick a random word on every pageload.
-// To make debugging easier, we'll log the solution in the console.
-function Game() {
-    _s();
-    const [guessesList, setGuessesList] = (0, _reactDefault.default).useState([]);
-    const [status, setStatus] = (0, _reactDefault.default).useState("running");
-    const [answer, setAnswer] = (0, _reactDefault.default).useState((0, _utils.sample)((0, _data.WORDS)));
-    function handleRestart() {
-        const newAns = (0, _utils.sample)((0, _data.WORDS));
-        setAnswer(newAns);
-        setGuessesList([]);
-        setStatus("running");
-    }
-    const validatedGuesses = guessesList.map((obj)=>(0, _gameHelpers.checkGuess)(obj.guess, answer));
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _guessListDefault.default), {
-                guessesList: guessesList,
-                answer: answer
-            }, void 0, false, {
-                fileName: "src/components/Game/Game.js",
-                lineNumber: 28,
-                columnNumber: 7
-            }, this),
-            status === "running" ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _enterWordDefault.default), {
-                guessesList: guessesList,
-                setGuessesList: setGuessesList,
-                status: status,
-                setStatus: setStatus,
-                answer: answer
-            }, void 0, false, {
-                fileName: "src/components/Game/Game.js",
-                lineNumber: 30,
-                columnNumber: 9
-            }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bannerDefault.default), {
-                guessesList: guessesList,
-                answer: answer,
-                status: status,
-                handleRestart: handleRestart
-            }, void 0, false, {
-                fileName: "src/components/Game/Game.js",
-                lineNumber: 38,
-                columnNumber: 9
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _keyboardDefault.default), {
-                validatedGuesses: validatedGuesses
-            }, void 0, false, {
-                fileName: "src/components/Game/Game.js",
-                lineNumber: 45,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true);
-}
-_s(Game, "ROo/F3ZOKptAZnJ2K0T/gFnOIB4=");
-_c = Game;
-exports.default = Game;
-var _c;
-$RefreshReg$(_c, "Game");
-
-  $parcel$ReactRefreshHelpers$161d.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../utils":"en4he","../../data":"9kapS","../EnterWord/EnterWord":"2cogl","../GuessList/GuessList":"bCwgj","../Banner/Banner":"dRLMg","../Keyboard/Keyboard":"cbXLQ","../../game-helpers":"dWwK5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"en4he":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "sample", ()=>sample);
-parcelHelpers.export(exports, "range", ()=>range);
-const sample = (arr)=>{
-    return arr[Math.floor(Math.random() * arr.length)];
-};
-const range = (start, end, step = 1)=>{
-    let output = [];
-    if (typeof end === "undefined") {
-        end = start;
-        start = 0;
-    }
-    for(let i = start; i < end; i += step)output.push(i);
-    return output;
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9kapS":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "WORDS", ()=>WORDS);
-const WORDS = [
-    "AGENT",
-    "WORLD",
-    "ABOUT",
-    "HEART",
-    "WATER",
-    "SIXTY",
-    "BOARD",
-    "MONTH",
-    "MUSIC",
-    "PARTY",
-    "PIANO",
-    "MOUTH",
-    "WOMAN",
-    "SUGAR",
-    "AMBER",
-    "DREAM",
-    "LAUGH",
-    "TIGER",
-    "EARTH",
-    "MONEY",
-    "WORDS",
-    "SMILE",
-    "LEMON",
-    "SOUTH",
-    "AFTER",
-    "STONE",
-    "THING",
-    "LIGHT",
-    "STORY",
-    "POWER",
-    "TODAY",
-    "RANGE",
-    "PEARL",
-    "VENOM",
-    "PROXY",
-    "ROUND",
-    "HOVER",
-    "CANDY",
-    "ABOVE",
-    "PHONE",
-    "OTHER",
-    "SMART",
-    "BLACK",
-    "MAGIC",
-    "FRUIT",
-    "RADIO",
-    "ROYAL",
-    "HONEY",
-    "FLAKE",
-    "SOUND"
-];
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2cogl":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$f300 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$f300.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _constants = require("../../constants");
-var _s = $RefreshSig$();
-function EnterWord({ guessesList , setGuessesList , answer , setStatus  }) {
-    _s();
-    const [guessWord, setGuessWord] = (0, _reactDefault.default).useState("");
-    const handleSubmitGuess = (e)=>{
-        e.preventDefault();
-        const newWord = {
-            guess: guessWord,
-            id: crypto.randomUUID()
-        };
-        const newGuessList = [
-            ...guessesList,
-            newWord
-        ];
-        setGuessesList(newGuessList);
-        setGuessWord("");
-        if (guessWord.toUpperCase() === answer) setStatus("won");
-        else if (guessesList.length + 1 >= (0, _constants.NUM_OF_GUESSES_ALLOWED)) setStatus("lost");
-    };
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
-        className: "guess-input-wrapper",
-        onSubmit: handleSubmitGuess,
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                htmlFor: "guess-input",
-                children: "Enter Guess:"
-            }, void 0, false, {
-                fileName: "src/components/EnterWord/EnterWord.js",
-                lineNumber: 20,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                type: "text",
-                className: "form-control",
-                name: "guess-input",
-                id: "guess-input",
-                "aria-describedby": "helpId",
-                pattern: "[a-zA-Z]{5}",
-                onChange: (e)=>setGuessWord(e.target.value.toUpperCase()),
-                placeholder: "",
-                value: guessWord
-            }, void 0, false, {
-                fileName: "src/components/EnterWord/EnterWord.js",
-                lineNumber: 21,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/EnterWord/EnterWord.js",
-        lineNumber: 19,
-        columnNumber: 5
-    }, this);
-}
-_s(EnterWord, "7GiW03hTTmtVv0zOuM3lgcWn53c=");
-_c = EnterWord;
-exports.default = EnterWord;
-var _c;
-$RefreshReg$(_c, "EnterWord");
-
-  $parcel$ReactRefreshHelpers$f300.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../constants":"3huJa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"3huJa":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "NUM_OF_GUESSES_ALLOWED", ()=>NUM_OF_GUESSES_ALLOWED);
-const NUM_OF_GUESSES_ALLOWED = 6;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bCwgj":[function(require,module,exports) {
+},{"7422ead32dcc1e6b":"786KC"}],"bCwgj":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1718 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
