@@ -1,7 +1,6 @@
 import React from "react";
-import { checkGuess } from "../../game-helpers";
 
-export const Banner = ({ status, guessesList, answer, handleRestart }) => {
+const Banner = ({ status, guessesList, answer, handleRestart }) => {
   return (
     <div>
       {status === "won" && (
@@ -24,3 +23,5 @@ export const Banner = ({ status, guessesList, answer, handleRestart }) => {
     </div>
   );
 };
+
+export default Banner;

@@ -4,7 +4,7 @@ import { sample } from "../../utils";
 import { WORDS } from "../../data";
 import EnterWord from "../EnterWord/EnterWord";
 import GuessList from "../GuessList/GuessList";
-import { Banner } from "../Banner";
+import Banner from "../Banner/Banner";
 import Keyboard from "../Keyboard/Keyboard";
 import { checkGuess } from "../../game-helpers";
 
