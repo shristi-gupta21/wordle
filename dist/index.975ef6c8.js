@@ -27466,7 +27466,8 @@ function EnterWord({ guessesList , setGuessesList , answer , setStatus  }) {
                 pattern: "[a-zA-Z]{5}",
                 onChange: (e)=>setGuessWord(e.target.value.toUpperCase()),
                 placeholder: "",
-                value: guessWord
+                value: guessWord,
+                autoComplete: "off"
             }, void 0, false, {
                 fileName: "src/components/EnterWord/EnterWord.js",
                 lineNumber: 21,
@@ -27735,10 +27736,7 @@ $RefreshReg$(_c1, "Guess");
   window.$RefreshSig$ = prevRefreshSig;
 }
 },{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../utils":"en4he","../../game-helpers":"dWwK5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"dWwK5":[function(require,module,exports) {
-/**
- * Thanks to Github user dylano for supplying a more-accurate
- * solving algorithm!
- */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "checkGuess", ()=>checkGuess);
 function checkGuess(guess, answer) {

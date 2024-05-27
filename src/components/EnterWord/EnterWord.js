@@ -28,6 +28,7 @@ function EnterWord({ guessesList, setGuessesList, answer, setStatus }) {
         onChange={(e) => setGuessWord(e.target.value.toUpperCase())}
         placeholder=""
         value={guessWord}
+        autoComplete={"off"}
       />
     </form>
   );
